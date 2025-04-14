@@ -44,10 +44,14 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         
         // For touch devices
-        icon.addEventListener('touchstart', (e) => {
-            e.preventDefault(); // Prevent default touch behavior
+        icon.addEventListener('touchstart', () => {
             resetAllIcons();
             icon.style.transform = 'translateY(-5px)';
+        });
+        
+        // Reset on touch end
+        icon.addEventListener('touchend', () => {
+            icon.style.transform = 'translateY(0)';
         });
     });
     
