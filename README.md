@@ -1,4 +1,7 @@
 # duan.bio
+
+![Architecture](./images/duan-bio.png)
+
 This site contains all of my contact links. 
 
 Reference video: https://youtu.be/eFzNekhVhmM

@@ -1,56 +1,81 @@
+// Minimal JavaScript for personal website
 
-const shareButtons = document.querySelectorAll('.tile-share-button')
+document.addEventListener('DOMContentLoaded', () => {
+    // Add viewport height fix for mobile browsers
+    const setDocHeight = () => {
+        document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`);
+    };
 
-const themeToggleBtn = document.querySelector('.share-button');
+    // Set the height initially and on resize
+    setDocHeight();
+    window.addEventListener('resize', () => {
+        setDocHeight();
+    });
 
-async function copyText(e) {
-    // prevent button going to the site
-    e.preventDefault()
-    // get the value of whatever I click
-    const link = this.getAttribute('link')
-    console.log(link)
-    try {
-        await navigator.clipboard.writeText(link)
-        alert("Copied to clipboard: " + link)
-    } catch (err) {
-        console.error('Failed to copy: ', err)
+    // Add smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            const targetId = this.getAttribute('href');
+            if (targetId !== '#') {
+                e.preventDefault();
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            }
+        });
+    });
+
+    // Simple hover effects for social icons - with touch support
+    const socialIcons = document.querySelectorAll('.social-icons a');
+    
+    // Add hover effects with proper touch handling
+    socialIcons.forEach(icon => {
+        // For mouse devices
+        icon.addEventListener('mouseenter', () => {
+            resetAllIcons();
+            icon.style.transform = 'translateY(-5px)';
+        });
+        
+        icon.addEventListener('mouseleave', () => {
+            icon.style.transform = 'translateY(0)';
+        });
+        
+        // For touch devices
+        icon.addEventListener('touchstart', (e) => {
+            e.preventDefault(); // Prevent default touch behavior
+            resetAllIcons();
+            icon.style.transform = 'translateY(-5px)';
+        });
+    });
+    
+    // Reset all icons to normal state
+    function resetAllIcons() {
+        socialIcons.forEach(i => {
+            i.style.transform = 'translateY(0)';
+        });
     }
-}
+    
+    // Reset on click outside
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.social-icons')) {
+            resetAllIcons();
+        }
+    });
+    
+    // Reset on scroll
+    window.addEventListener('scroll', () => {
+        resetAllIcons();
+    });
+    
+    // Analytics tracking (basic implementation)
+    const trackPageView = () => {
+        // This would be replaced with actual analytics code
+        console.log('Page view tracked');
+    };
 
-shareButtons.forEach(shareButton => 
-    shareButton.addEventListener('click', copyText))
-
-// JavaScript for the counter
-
-// Selects the .counter-number element from index.html file
-const counter = document.querySelector('.counter-number');
-async function updateCounter() {
-    // Fetch the current number of views from the serverless function
-    let response = await fetch('enter api gateway info here');
-    // Stores the response as a JSON object
-    let data = await response.json();
-    // Updates the .counter-number element with the current number of views
-    counter.innerHTML = `Visits: ${data}`;
-}
-
-// state
-const theme = localStorage.getItem('theme');
-
-// on mount
-theme && document.body.classList.add(theme);
-
-// handlers
-const handleThemeToggle = () => {
-  document.body.classList.toggle('dark-mode');
-  if (document.body.classList.contains('dark-mode')) {
-    localStorage.setItem('theme', 'dark-mode');
-  } else {
-    localStorage.removeItem('theme');
-  }
-};
-
-// events
-themeToggleBtn.addEventListener('click', handleThemeToggle);
-
-
-updateCounter();
+    // Track page view on load
+    trackPageView();
+});
