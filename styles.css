@@ -22,7 +22,7 @@ html, body {
 }
 
 body {
-    background-color: var(--background);
+    background: linear-gradient(135deg, #0061f2 0%, #00c6f9 100%);
     color: var(--text);
     font-family: "Inter", system-ui, sans-serif;
     min-height: 100vh; /* Fallback */
