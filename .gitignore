@@ -1,3 +1,25 @@
+# OS
+.DS_Store
+
+# Playwright
+.playwright-mcp/
+
+# Autonomous build
+build-logs/
+BUILD_PROGRESS.md
+PROMPT.md
+PLAN.md
+AMPLIFY_CLEANUP.md
+
+# Claude
+CLAUDE.md
+.claude/
+
+# Node
+node_modules/
+frontend/dist/
+infra/cdk.out/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
